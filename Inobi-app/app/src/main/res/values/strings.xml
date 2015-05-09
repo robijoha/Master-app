@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">Inobi-app</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_create_spot">CreateSpot</string>
+    <string name="title_activity_insert_spot_data">InsertSpotData</string>
+    <string name="title_activity_spot_info">SpotInfo</string>
+    <string name="people_present">Antal närvarande:</string>
+    <string name="conversations">Antal pågående samtal:</string>
+    <string name="collaborations">Antal samarbeten:</string>
+    <string name="sitting">Andel som sitter:</string>
+    <string name="flow">Antal som passerar:</string>
+    <string name="title_activity_splash_screen">SplashScreen</string>
+</resources>

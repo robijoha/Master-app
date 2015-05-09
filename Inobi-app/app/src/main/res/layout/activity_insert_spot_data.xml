@@ -1,0 +1,466 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="se.ixdmaster.gabre.inobi_app.InsertSpotData"
+    android:background="@drawable/white_paper_texture">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/scrollView"
+        android:layout_gravity="left|top">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+
+            <FrameLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/close_insert"
+                android:paddingTop="15dp"
+                android:paddingBottom="15dp"
+                android:paddingRight="15dp">
+
+                <FrameLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/imageView4"
+                        android:layout_gravity="center"
+                        android:src="@drawable/cross" />
+
+                    <Button
+                        android:layout_width="@dimen/button_size"
+                        android:layout_height="@dimen/button_size"
+                        android:id="@+id/button_insert_close"
+                        android:layout_gravity="center_vertical|right"
+                        android:background="@drawable/placeholder" />
+                </FrameLayout>
+            </FrameLayout>
+
+            <FrameLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+                android:id="@+id/name_insert"
+                android:paddingTop="15dp"
+                android:paddingBottom="15dp">
+
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/editText_name"
+                    android:layout_gravity="center_horizontal"
+                    android:gravity="center"
+                    android:background="#00000000"
+                    android:singleLine="true"
+                    android:textSize="35dp"
+                    android:cursorVisible="false"
+                    android:inputType="text"
+                    />
+            </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/present_insert"
+            android:paddingTop="15dp"
+            android:paddingBottom="15dp">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="@string/people_present"
+                    android:id="@+id/textView_insert_people_present"
+                    android:layout_gravity="center" />
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent">
+
+                    <FrameLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="3">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/imageView2"
+                            android:layout_gravity="center|right"
+                            android:src="@drawable/decrement"
+                            android:paddingRight="10dp" />
+
+                        <Button
+                            android:layout_width="@dimen/button_size"
+                            android:layout_height="@dimen/button_size"
+                            android:id="@+id/button_insertSpot_decPresent"
+                            android:layout_gravity="center|right"
+                            android:background="@drawable/placeholder" />
+
+                    </FrameLayout>
+
+                    <FrameLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="4">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="0"
+                            android:id="@+id/textView_insert_people_numb"
+                            android:textSize="40dp"
+                            android:layout_gravity="center" />
+                    </FrameLayout>
+
+                    <FrameLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="3">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/imageView_insertSpot_addPresent"
+                            android:src="@drawable/increment"
+                            android:layout_gravity="left|center"
+                            android:paddingLeft="10dp" />
+
+                        <Button
+                            android:layout_width="@dimen/button_size"
+                            android:layout_height="@dimen/button_size"
+                            android:id="@+id/button_insertSpot_addPresent"
+                            android:layout_gravity="left|center"
+                            android:background="@drawable/placeholder" />
+                    </FrameLayout>
+                </LinearLayout>
+            </LinearLayout>
+        </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/current_insert"
+                android:paddingBottom="15dp"
+                android:paddingTop="15dp">
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:text="@string/conversations"
+                        android:id="@+id/textView_insert_current_conv"
+                        android:layout_gravity="center"
+                        android:padding="10dp" />
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:padding="10dp">
+
+                        <FrameLayout
+                            android:layout_width="fill_parent"
+                            android:layout_height="fill_parent"
+                            android:layout_weight="3" >
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/imageView5"
+                                android:layout_gravity="center|right"
+                                android:src="@drawable/decrement"
+                                android:paddingRight="10dp" />
+
+                            <Button
+                                android:layout_width="@dimen/button_size"
+                                android:layout_height="@dimen/button_size"
+                                android:id="@+id/button_insertSpot_decConv"
+                                android:layout_gravity="center|right"
+                                android:background="@drawable/placeholder" />
+                        </FrameLayout>
+
+                        <FrameLayout
+                            android:layout_width="fill_parent"
+                            android:layout_height="fill_parent"
+                            android:layout_weight="4" >
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="0"
+                                android:id="@+id/textView_insert_conv_numb"
+                                android:textSize="40dp"
+                                android:layout_gravity="center" />
+                        </FrameLayout>
+
+                        <FrameLayout
+                            android:layout_width="fill_parent"
+                            android:layout_height="fill_parent"
+                            android:layout_weight="3" >
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/imageView6"
+                                android:layout_gravity="left|center"
+                                android:paddingLeft="10dp"
+                                android:src="@drawable/increment" />
+
+                            <Button
+                                android:layout_width="@dimen/button_size"
+                                android:layout_height="@dimen/button_size"
+                                android:id="@+id/button_insertSpot_addConv"
+                                android:layout_gravity="left|center"
+                                android:background="@drawable/placeholder" />
+                        </FrameLayout>
+                    </LinearLayout>
+                </LinearLayout>
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/collab_insert"
+                android:paddingTop="15dp"
+                android:paddingBottom="15dp">
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:text="@string/collaborations"
+                        android:id="@+id/textView_insert_collab"
+                        android:layout_gravity="center" />
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent" >
+
+                        <FrameLayout
+                            android:layout_width="fill_parent"
+                            android:layout_height="fill_parent"
+                            android:layout_weight="3" >
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/imageView7"
+                                android:paddingRight="10dp"
+                                android:src="@drawable/decrement"
+                                android:layout_gravity="center|right" />
+
+                            <Button
+                                android:layout_width="@dimen/button_size"
+                                android:layout_height="@dimen/button_size"
+                                android:id="@+id/button_insertSpot_decCollab"
+                                android:layout_gravity="center|right"
+                                android:background="@drawable/placeholder" />
+                        </FrameLayout>
+
+                        <FrameLayout
+                            android:layout_width="fill_parent"
+                            android:layout_height="fill_parent"
+                            android:layout_weight="4" >
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="0"
+                                android:id="@+id/textView_insert_collab_numb"
+                                android:textSize="40dp"
+                                android:layout_gravity="center" />
+                        </FrameLayout>
+
+                        <FrameLayout
+                            android:layout_width="fill_parent"
+                            android:layout_height="fill_parent"
+                            android:layout_weight="3" >
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/imageView8"
+                                android:src="@drawable/increment"
+                                android:paddingLeft="10dp"
+                                android:layout_gravity="left|center" />
+
+                            <Button
+                                android:layout_width="@dimen/button_size"
+                                android:layout_height="@dimen/button_size"
+                                android:id="@+id/button_insertSpot_addCollab"
+                                android:layout_gravity="left|center"
+                                android:background="@drawable/placeholder" />
+                        </FrameLayout>
+                    </LinearLayout>
+                </LinearLayout>
+            </FrameLayout>
+
+            <FrameLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+                android:id="@+id/sitting_insert"
+                android:paddingTop="15dp"
+                android:paddingBottom="15dp">
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/sitting"
+                        android:id="@+id/textView_insert_people_sitting"
+                        android:layout_gravity="center"
+                        android:textSize="20dp" />
+
+                    <SeekBar
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/seekBar"
+                        android:layout_gravity="center"
+                        android:max="7"
+                        android:padding="10dp"
+                        android:progressDrawable="@drawable/custom_seekbar_progress"
+                        android:thumb="@drawable/custom_seekbar_control"/>
+                </LinearLayout>
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:id="@+id/flow_insert"
+                android:paddingTop="15dp"
+                android:paddingBottom="15dp">
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent" >
+
+                    <FrameLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:paddingTop="5dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/flow"
+                            android:id="@+id/textView_insert_flow"
+                            android:layout_gravity="center"
+                            android:textSize="20dp" />
+                    </FrameLayout>
+
+                    <FrameLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:id="@+id/frameLayout"
+                        android:paddingTop="5dp">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/imageView_flow_darkFull"
+                            android:layout_gravity="center"
+                            android:src="@drawable/dark_full" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/imageView_flow_lightHalf_left"
+                            android:layout_gravity="center"
+                            android:src="@drawable/light_half_left" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/imageView_flow_darkHalf"
+                            android:layout_gravity="center"
+                            android:src="@drawable/dark_half" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/imageView_flow_lightHalf_right"
+                            android:layout_gravity="center"
+                            android:src="@drawable/light_half_right" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/imageView_flow_black"
+                            android:src="@drawable/black_full"
+                            android:layout_gravity="center" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/imageView_flow_black_small"
+                            android:src="@drawable/black_full_small"
+                            android:layout_gravity="center" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Börja\nräkna"
+                            android:id="@+id/textView_flow_counter"
+                            android:layout_gravity="center"
+                            android:textColor="#FFFFFF"
+                            android:textSize="16dp" />
+
+                        <Button
+                            android:layout_width="100dp"
+                            android:layout_height="100dp"
+                            android:id="@+id/button_flow_counter"
+                            android:layout_gravity="center"
+                            android:background="@drawable/placeholder" />
+                    </FrameLayout>
+                </LinearLayout>
+            </FrameLayout>
+
+            <FrameLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+                android:id="@+id/Save"
+                android:paddingTop="15dp"
+                android:paddingBottom="15dp">
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Save"
+                android:id="@+id/button_save_spot" />
+        </FrameLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+</FrameLayout>

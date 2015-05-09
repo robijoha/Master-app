@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:height="@dimen/flow_counter_size_half"
+    android:width="@dimen/flow_counter_size_half"
+    android:viewportHeight="500"
+    android:viewportWidth="500">
+
+    <path
+        android:fillColor="#2d2e2d"
+        android:pathData="M0,250a250,250 0 1,0 500,0a250,250 0 1,0 -500,0"/>
+</vector>
