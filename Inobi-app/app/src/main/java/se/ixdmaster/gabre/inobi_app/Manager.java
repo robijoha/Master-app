@@ -70,6 +70,10 @@ public class Manager implements SpotManager{
         }
     }
 
+    public void clearData(){
+        list = new ArrayList<>();
+    }
+
     @Override
     public String export() {
         StringBuilder sB = new StringBuilder();
@@ -90,8 +94,10 @@ public class Manager implements SpotManager{
                 item.put("name", spot.getName());
                 item.put("lat", spot.getLat());
                 item.put("lng", spot.getLng());
+                item.put("time", spot.getTime());
                 item.put("date", spot.getDate());
                 item.put("userId", spot.getUserId());
+                item.put("project", spot.getProject());
                 item.put("peoplePresent", spot.getPeoplePresent());
                 item.put("nrOfConv", spot.getNrOfConv());
                 item.put("nrOfcollab", spot.getNrOfcollab());
@@ -102,6 +108,7 @@ public class Manager implements SpotManager{
             catch (JSONException e) {}
         }
         editor.putString("DATA", data.toString());
+        Log.d("JSON", data.toString());
         editor.commit();
     }
 }

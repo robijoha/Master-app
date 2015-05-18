@@ -1,218 +1,245 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" tools:context="se.ixdmaster.gabre.inobi_app.SpotInfo"
-    android:background="@drawable/white_paper_texture"
-    android:orientation="vertical">
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" tools:context="se.ixdmaster.gabre.inobi_app.SpotInfo"
+    android:background="#D6D6D6"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-
-    <FrameLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content" >
-
-        <FrameLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="right"
-            android:paddingTop="15dp"
-            android:paddingRight="15dp"
-            android:paddingBottom="5dp" >
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/imageView_info_close"
-                android:layout_gravity="center"
-                android:src="@drawable/cross" />
-
-            <Button
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:id="@+id/button_info_close"
-                android:enabled="true"
-                android:layout_gravity="center"
-                android:background="@drawable/placeholder" />
-        </FrameLayout>
-    </FrameLayout>
-
-    <FrameLayout
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/scrollView2" >
 
         <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent">
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+
+            android:orientation="vertical">
+
 
             <FrameLayout
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/name"
-                android:padding="5dp">
+                android:layout_height="wrap_content" >
 
-                <TextView
+                <FrameLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="New Text"
-                    android:id="@+id/textView_info_name"
-                    android:layout_gravity="center"
-                    android:singleLine="false"
-                    android:phoneNumber="false"
-                    android:password="false" />
-            </FrameLayout>
+                    android:layout_gravity="right"
+                    android:paddingTop="15dp"
+                    android:paddingRight="15dp"
+                    android:paddingBottom="5dp" >
 
-            <FrameLayout
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/present"
-                android:padding="5dp">
-
-                <LinearLayout
-                    android:orientation="vertical"
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent">
-
-                    <TextView
+                    <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/people_present"
-                        android:id="@+id/textView_info_people"
+                        android:id="@+id/imageView_info_close"
                         android:layout_gravity="center"
-                        android:paddingBottom="10dp" />
+                        android:src="@drawable/cross" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="New Text"
-                        android:id="@+id/textView_info_people_numb"
-                        android:layout_gravity="center" />
-                </LinearLayout>
-            </FrameLayout>
-
-            <FrameLayout
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/conv"
-                android:padding="5dp">
-
-                <LinearLayout
-                    android:orientation="vertical"
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/conversations"
-                        android:id="@+id/textView_info_conv"
+                    <Button
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:id="@+id/button_info_close"
+                        android:enabled="true"
                         android:layout_gravity="center"
-                        android:paddingBottom="10dp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="New Text"
-                        android:id="@+id/textView_info_conv_numb"
-                        android:layout_gravity="center" />
-                </LinearLayout>
+                        android:background="@drawable/placeholder" />
+                </FrameLayout>
             </FrameLayout>
 
             <FrameLayout
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/collab"
-                android:padding="5dp">
+                android:layout_height="fill_parent">
 
                 <LinearLayout
                     android:orientation="vertical"
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent">
 
-                    <TextView
-                        android:layout_width="wrap_content"
+                    <FrameLayout
+                        android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/collaborations"
-                        android:id="@+id/textView_info_collab"
-                        android:layout_gravity="center"
-                        android:paddingBottom="10dp" />
+                        android:id="@+id/name"
+                        android:padding="20dp">
 
-                    <TextView
-                        android:layout_width="wrap_content"
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/imageView11"
+                            android:layout_gravity="center"
+                            android:src="@drawable/text_back" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="New Text"
+                            android:id="@+id/textView_info_name"
+                            android:layout_gravity="center"
+                            android:singleLine="false"
+                            android:phoneNumber="false"
+                            android:password="false" />
+
+                    </FrameLayout>
+
+                    <FrameLayout
+                        android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
-                        android:text="New Text"
-                        android:id="@+id/textView_info_collab_numb"
-                        android:layout_gravity="center" />
+                        android:id="@+id/present"
+                        android:padding="20dp">
+
+                        <LinearLayout
+                            android:orientation="vertical"
+                            android:layout_width="fill_parent"
+                            android:layout_height="fill_parent">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/people_present"
+                                android:id="@+id/textView_info_people"
+                                android:layout_gravity="center"
+                                android:paddingBottom="10dp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="New Text"
+                                android:id="@+id/textView_info_people_numb"
+                                android:layout_gravity="center" />
+                        </LinearLayout>
+                    </FrameLayout>
+
+                    <FrameLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/conv"
+                        android:padding="20dp">
+
+                        <LinearLayout
+                            android:orientation="vertical"
+                            android:layout_width="fill_parent"
+                            android:layout_height="fill_parent">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/conversations"
+                                android:id="@+id/textView_info_conv"
+                                android:layout_gravity="center"
+                                android:paddingBottom="10dp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="New Text"
+                                android:id="@+id/textView_info_conv_numb"
+                                android:layout_gravity="center" />
+                        </LinearLayout>
+                    </FrameLayout>
+
+                    <FrameLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/collab"
+                        android:padding="20dp">
+
+                        <LinearLayout
+                            android:orientation="vertical"
+                            android:layout_width="fill_parent"
+                            android:layout_height="fill_parent">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/collaborations"
+                                android:id="@+id/textView_info_collab"
+                                android:layout_gravity="center"
+                                android:paddingBottom="10dp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="New Text"
+                                android:id="@+id/textView_info_collab_numb"
+                                android:layout_gravity="center" />
+                        </LinearLayout>
+
+                    </FrameLayout>
+
+                    <FrameLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/sitting"
+                        android:padding="20dp">
+
+                        <LinearLayout
+                            android:orientation="vertical"
+                            android:layout_width="fill_parent"
+                            android:layout_height="fill_parent">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/sitting"
+                                android:id="@+id/textView_info_sitting"
+                                android:layout_gravity="center" />
+
+                            <SeekBar
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/seekBar_info"
+                                android:progressDrawable="@drawable/custom_seekbar_progress"
+                                android:thumb="@drawable/custom_seekbar_control"
+                                android:layout_gravity="center"
+                                android:paddingLeft="20dp"
+                                android:paddingRight="20dp"
+                                android:paddingTop="10dp" />
+                        </LinearLayout>
+
+                    </FrameLayout>
+
+                    <FrameLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/flow"
+                        android:padding="20dp">
+
+                        <LinearLayout
+                            android:orientation="vertical"
+                            android:layout_width="fill_parent"
+                            android:layout_height="fill_parent">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/flow"
+                                android:id="@+id/textView_info_flow"
+                                android:layout_gravity="center"
+                                android:paddingBottom="10dp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="New Text"
+                                android:id="@+id/textView_info_flow_numb"
+                                android:layout_gravity="center" />
+                        </LinearLayout>
+                    </FrameLayout>
+
+                    <FrameLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/frameLayout2"
+                        android:padding="20dp">
+
+                        <Button
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Delete"
+                            android:id="@+id/button_info_delete"
+                            android:layout_gravity="center" />
+                    </FrameLayout>
                 </LinearLayout>
-
-            </FrameLayout>
-
-            <FrameLayout
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/sitting"
-                android:padding="5dp">
-
-                <LinearLayout
-                    android:orientation="vertical"
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/sitting"
-                        android:id="@+id/textView_info_sitting"
-                        android:layout_gravity="center" />
-
-                    <SeekBar
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/seekBar_info"
-                        android:layout_gravity="center" />
-                </LinearLayout>
-
-            </FrameLayout>
-
-            <FrameLayout
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/flow"
-                android:padding="5dp">
-
-                <LinearLayout
-                    android:orientation="vertical"
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/flow"
-                        android:id="@+id/textView_info_flow"
-                        android:layout_gravity="center"
-                        android:paddingBottom="10dp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="New Text"
-                        android:id="@+id/textView_info_flow_numb"
-                        android:layout_gravity="center" />
-                </LinearLayout>
-            </FrameLayout>
-
-            <FrameLayout
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/frameLayout2"
-                android:paddingTop="15dp"
-                android:paddingBottom="15dp" >
-
-                <Button
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Delete"
-                    android:id="@+id/button_info_delete" />
             </FrameLayout>
         </LinearLayout>
-    </FrameLayout>
-</LinearLayout>
+    </ScrollView>
+</FrameLayout>

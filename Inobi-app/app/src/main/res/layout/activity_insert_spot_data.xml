@@ -3,7 +3,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="se.ixdmaster.gabre.inobi_app.InsertSpotData"
-    android:background="@drawable/white_paper_texture">
+    android:background="#D6D6D6">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -50,7 +50,7 @@
             android:layout_height="wrap_content"
                 android:id="@+id/name_insert"
                 android:paddingTop="15dp"
-                android:paddingBottom="15dp">
+                android:paddingBottom="45dp">
 
                 <EditText
                     android:layout_width="wrap_content"
@@ -58,12 +58,19 @@
                     android:id="@+id/editText_name"
                     android:layout_gravity="center_horizontal"
                     android:gravity="center"
-                    android:background="#00000000"
+                    android:background="@drawable/text_back"
                     android:singleLine="true"
-                    android:textSize="35dp"
                     android:cursorVisible="false"
-                    android:inputType="text"
+                    android:inputType="textCapSentences"
                     />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/imageView_insert_text_wrong"
+                    android:src="@drawable/text_back_wrong"
+                    android:layout_gravity="center_horizontal"
+                    android:visibility="invisible" />
             </FrameLayout>
 
         <FrameLayout
@@ -84,12 +91,14 @@
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:text="@string/people_present"
                     android:id="@+id/textView_insert_people_present"
-                    android:layout_gravity="center" />
+                    android:layout_gravity="center"
+                    android:paddingBottom="25dp" />
 
                 <LinearLayout
                     android:orientation="horizontal"
                     android:layout_width="fill_parent"
-                    android:layout_height="fill_parent">
+                    android:layout_height="fill_parent"
+                    android:paddingBottom="30dp">
 
                     <FrameLayout
                         android:layout_width="fill_parent"
@@ -170,13 +179,14 @@
                         android:text="@string/conversations"
                         android:id="@+id/textView_insert_current_conv"
                         android:layout_gravity="center"
-                        android:padding="10dp" />
+                        android:paddingBottom="25dp" />
 
                     <LinearLayout
                         android:orientation="horizontal"
                         android:layout_width="fill_parent"
                         android:layout_height="fill_parent"
-                        android:padding="10dp">
+                        android:paddingBottom="30dp"
+                        android:baselineAligned="false">
 
                         <FrameLayout
                             android:layout_width="fill_parent"
@@ -223,8 +233,8 @@
                                 android:layout_height="wrap_content"
                                 android:id="@+id/imageView6"
                                 android:layout_gravity="left|center"
-                                android:paddingLeft="10dp"
-                                android:src="@drawable/increment" />
+                                android:src="@drawable/increment"
+                                android:paddingLeft="10dp" />
 
                             <Button
                                 android:layout_width="@dimen/button_size"
@@ -255,12 +265,14 @@
                         android:textAppearance="?android:attr/textAppearanceMedium"
                         android:text="@string/collaborations"
                         android:id="@+id/textView_insert_collab"
-                        android:layout_gravity="center" />
+                        android:layout_gravity="center"
+                        android:paddingBottom="25dp" />
 
                     <LinearLayout
                         android:orientation="horizontal"
                         android:layout_width="fill_parent"
-                        android:layout_height="fill_parent" >
+                        android:layout_height="fill_parent"
+                        android:paddingBottom="30dp">
 
                         <FrameLayout
                             android:layout_width="fill_parent"
@@ -300,15 +312,15 @@
                         <FrameLayout
                             android:layout_width="fill_parent"
                             android:layout_height="fill_parent"
-                            android:layout_weight="3" >
+                            android:layout_weight="3">
 
                             <ImageView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:id="@+id/imageView8"
                                 android:src="@drawable/increment"
-                                android:paddingLeft="10dp"
-                                android:layout_gravity="left|center" />
+                                android:layout_gravity="left|center"
+                                android:paddingLeft="10dp" />
 
                             <Button
                                 android:layout_width="@dimen/button_size"
@@ -339,7 +351,8 @@
                         android:text="@string/sitting"
                         android:id="@+id/textView_insert_people_sitting"
                         android:layout_gravity="center"
-                        android:textSize="20dp" />
+                        android:textSize="20sp"
+                        android:paddingBottom="25dp" />
 
                     <SeekBar
                         android:layout_width="match_parent"
@@ -347,9 +360,13 @@
                         android:id="@+id/seekBar"
                         android:layout_gravity="center"
                         android:max="7"
-                        android:padding="10dp"
                         android:progressDrawable="@drawable/custom_seekbar_progress"
-                        android:thumb="@drawable/custom_seekbar_control"/>
+                        android:thumb="@drawable/custom_seekbar_control"
+                        android:paddingLeft="40dp"
+                        android:paddingRight="40dp"
+                        android:paddingTop="5dp"
+                        android:paddingBottom="30dp"
+                        />
                 </LinearLayout>
             </FrameLayout>
 
@@ -376,14 +393,15 @@
                             android:text="@string/flow"
                             android:id="@+id/textView_insert_flow"
                             android:layout_gravity="center"
-                            android:textSize="20dp" />
+                            android:textSize="20dp"
+                            android:paddingBottom="25dp" />
                     </FrameLayout>
 
                     <FrameLayout
                         android:layout_width="fill_parent"
                         android:layout_height="fill_parent"
                         android:id="@+id/frameLayout"
-                        android:paddingTop="5dp">
+                        android:paddingBottom="30dp">
 
                         <ImageView
                             android:layout_width="wrap_content"
@@ -454,11 +472,18 @@
                 android:paddingBottom="15dp">
 
             <Button
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Save"
-                android:id="@+id/button_save_spot" />
+                android:id="@+id/button_save_spot"
+                android:layout_gravity="center_horizontal" />
         </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            </FrameLayout>
 
         </LinearLayout>
     </ScrollView>

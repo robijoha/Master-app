@@ -1,6 +1,7 @@
 package se.ixdmaster.gabre.inobi_app;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Handler;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -8,10 +9,15 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.mapbox.mapboxsdk.geometry.BoundingBox;
+import com.mapbox.mapboxsdk.geometry.CoordinateRegion;
+import com.mapbox.mapboxsdk.geometry.CoordinateSpan;
+import com.mapbox.mapboxsdk.offline.OfflineMapDownloader;
+import com.mapbox.mapboxsdk.views.MapView;
+
 public class SplashScreen extends ActionBarActivity {
 
     private static int SPLASH_TIME_OUT = 3000;
-    //TODO: Update splash image, time?
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,15 +32,18 @@ public class SplashScreen extends ActionBarActivity {
 
         setContentView(R.layout.splash);
 
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                startActivity(intent);
-                finish();
-            }
-        }, SPLASH_TIME_OUT);
+//        new PreLoadData().execute();
+
+//        new Handler().postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+//                startActivity(intent);
+//                finish();
+//            }
+//        }, SPLASH_TIME_OUT);
     }
+
 
 
 
@@ -53,10 +62,10 @@ public class SplashScreen extends ActionBarActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
+//        //noinspection SimplifiableIfStatement
+//        if (id == R.id.action_settings) {
+//            return true;
+//        }
 
         return super.onOptionsItemSelected(item);
     }

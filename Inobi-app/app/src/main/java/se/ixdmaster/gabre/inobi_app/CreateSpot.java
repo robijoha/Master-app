@@ -22,6 +22,7 @@ public class CreateSpot extends ActionBarActivity {
     private double currentLng;
     private String nameOne, nameTwo, nameThree;
     protected static boolean flag = false;
+    private ArrayList<Touple> tList;
 
 
     @Override
@@ -55,7 +56,7 @@ public class CreateSpot extends ActionBarActivity {
 
     public void makeCloseList(){
         ArrayList<Spot> list = Manager.getInstance().getList();
-        ArrayList<Touple> tList = new ArrayList<>();
+        tList = new ArrayList<>();
         for (Spot spot : list){
             double d = calculateDistance(currentLat, currentLng, spot.getLat(), spot.getLng());
             if(d <= 100){
@@ -123,6 +124,7 @@ public class CreateSpot extends ActionBarActivity {
                 Intent intent = new Intent(getApplicationContext(), InsertSpotData.class);
                 intent.putExtra("Lat", currentLat);
                 intent.putExtra("Lng" , currentLng);
+                intent.putExtra("Name", "");
                 startActivity(intent);
             }
         });
@@ -143,8 +145,8 @@ public class CreateSpot extends ActionBarActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), InsertSpotData.class);
-                intent.putExtra("Lat", currentLat);
-                intent.putExtra("Lng" , currentLng);
+                intent.putExtra("Lat", tList.get(0).spot.getLat());
+                intent.putExtra("Lng" , tList.get(0).spot.getLng());
                 intent.putExtra("Name", nameOne);
                 startActivity(intent);
             }
@@ -154,8 +156,8 @@ public class CreateSpot extends ActionBarActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), InsertSpotData.class);
-                intent.putExtra("Lat", currentLat);
-                intent.putExtra("Lng" , currentLng);
+                intent.putExtra("Lat", tList.get(1).spot.getLat());
+                intent.putExtra("Lng" , tList.get(1).spot.getLng());
                 intent.putExtra("Name", nameTwo);
                 startActivity(intent);
             }
@@ -165,8 +167,8 @@ public class CreateSpot extends ActionBarActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), InsertSpotData.class);
-                intent.putExtra("Lat", currentLat);
-                intent.putExtra("Lng" , currentLng);
+                intent.putExtra("Lat", tList.get(2).spot.getLat());
+                intent.putExtra("Lng" , tList.get(2).spot.getLng());
                 intent.putExtra("Name", nameThree);
                 startActivity(intent);
             }
@@ -178,30 +180,30 @@ public class CreateSpot extends ActionBarActivity {
 
     public void setUpDesign(){
 
-        Typeface SSPRegular = Typeface.createFromAsset(getAssets(), "SourceSansPro-Light.ttf");
+        Typeface SSPLight = Typeface.createFromAsset(getAssets(), "SourceSansPro-Light.ttf");
 
         TextView t1 = (TextView) findViewById(R.id.text_button_add_new);
-        t1.setTypeface(SSPRegular);
+        t1.setTypeface(SSPLight);
         t1.setTextColor(0xFF2E2E2E);
         t1.setTextSize(TypedValue.COMPLEX_UNIT_SP, MainActivity.TITLE_SIZE);
 
         TextView t2 = (TextView) findViewById(R.id.text_existing_spot_header);
-        t2.setTypeface(SSPRegular);
+        t2.setTypeface(SSPLight);
         t2.setTextColor(0xFF868686);
         t2.setTextSize(TypedValue.COMPLEX_UNIT_SP, MainActivity.TITLE_SIZE);
 
         TextView t3 = (TextView) findViewById(R.id.text_close_one);
-        t3.setTypeface(SSPRegular);
+        t3.setTypeface(SSPLight);
         t3.setTextColor(0xFF2E2E2E);
         t3.setTextSize(TypedValue.COMPLEX_UNIT_SP, MainActivity.TITLE_SIZE);
 
         TextView t4 = (TextView) findViewById(R.id.text_close_two);
-        t4.setTypeface(SSPRegular);
+        t4.setTypeface(SSPLight);
         t4.setTextColor(0xFF2E2E2E);
         t4.setTextSize(TypedValue.COMPLEX_UNIT_SP, MainActivity.TITLE_SIZE);
 
         TextView t5 = (TextView) findViewById(R.id.text_close_three);
-        t5.setTypeface(SSPRegular);
+        t5.setTypeface(SSPLight);
         t5.setTextColor(0xFF2E2E2E);
         t5.setTextSize(TypedValue.COMPLEX_UNIT_SP, MainActivity.TITLE_SIZE);
 
@@ -281,10 +283,10 @@ public class CreateSpot extends ActionBarActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
+//        //noinspection SimplifiableIfStatement
+//        if (id == R.id.action_settings) {
+//            return true;
+//        }
 
         return super.onOptionsItemSelected(item);
     }

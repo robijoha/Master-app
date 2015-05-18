@@ -3,7 +3,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="se.ixdmaster.gabre.inobi_app.CreateSpot"
-    android:background="@drawable/white_paper_texture">
+    android:background="#D6D6D6">
 
     <FrameLayout
         android:layout_width="fill_parent"

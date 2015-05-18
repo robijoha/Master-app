@@ -18,8 +18,14 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ScrollView;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -41,10 +47,6 @@ public class InsertSpotData extends ActionBarActivity {
     private double currentLat = 0;
     private double currentLng = 0;
 
-
-    //TODO:SEEKBAR COLORS!!!!!!
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,6 +62,7 @@ public class InsertSpotData extends ActionBarActivity {
 
         setContentView(R.layout.activity_insert_spot_data);
 
+        spotName = "";
         Bundle b = getIntent().getExtras();
         try{
             currentLat = (double) b.get("Lat");
@@ -76,6 +79,7 @@ public class InsertSpotData extends ActionBarActivity {
     }
 
     private void textSetup(){
+        Typeface SSPEXTRA = Typeface.createFromAsset(getAssets(), "SourceSansPro-ExtraLight.ttf");
         Typeface SSPLight = Typeface.createFromAsset(getAssets(), "SourceSansPro-Light.ttf");
         Typeface SSPRegular = Typeface.createFromAsset(getAssets(), "SourceSansPro-Regular.ttf");
 
@@ -85,23 +89,28 @@ public class InsertSpotData extends ActionBarActivity {
         list.add((TextView) findViewById(R.id.textView_insert_collab));
         list.add((TextView) findViewById(R.id.textView_insert_people_sitting));
         list.add((TextView) findViewById(R.id.textView_flow_counter));
+        list.add((TextView) findViewById(R.id.textView_insert_flow));
         list.add((TextView) findViewById(R.id.textView_insert_people_numb));
         list.add((TextView) findViewById(R.id.textView_insert_conv_numb));
         list.add((TextView) findViewById(R.id.textView_insert_collab_numb));
 
         for (int i = 0; i < list.size(); i++){
             TextView t = list.get(i);
-            t.setTypeface(SSPRegular);
-            if(i > 4){
+            t.setTypeface(SSPLight);
+            t.setTextColor(0xFF2E2E2E);
+            if(i > 5){
                 t.setTextSize(TypedValue.COMPLEX_UNIT_SP, MainActivity.NUMB_SIZE);
             }else{
                 t.setTextSize(TypedValue.COMPLEX_UNIT_SP, MainActivity.TEXT_SIZE);
             }
         }
 
+        list.get(4).setTextColor(0xFFFEFEFE);
+
         //Edit text setup i.e. the name at the top
         final EditText e1 = (EditText) findViewById(R.id.editText_name);
-        e1.setTypeface(SSPLight);
+        e1.setTypeface(SSPEXTRA);
+        e1.setTextSize(TypedValue.COMPLEX_UNIT_SP, MainActivity.TITLE_SIZE);
         e1.setHint("Namn på plats...");
         e1.setTextColor(0xFF2E2E2E);
         e1.setOnClickListener(new View.OnClickListener() {
@@ -114,14 +123,14 @@ public class InsertSpotData extends ActionBarActivity {
         e1.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if(EditorInfo.IME_ACTION_NONE <= actionId && actionId <= EditorInfo.IME_ACTION_DONE){
+                if (EditorInfo.IME_ACTION_NONE <= actionId && actionId <= EditorInfo.IME_ACTION_DONE) {
                     e1.setCursorVisible(false);
                 }
                 return false;
             }
         });
 
-        if(spotName != null) {
+        if(spotName.compareTo("") != 0) {
             e1.setText(spotName);
             getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
             e1.setEnabled(false);
@@ -136,21 +145,30 @@ public class InsertSpotData extends ActionBarActivity {
         final TextView textNrCollab = (TextView) findViewById(R.id.textView_insert_collab_numb);
         final SeekBar seekBar = (SeekBar) findViewById(R.id.seekBar);
 
-
-
+        Typeface SSPLight = Typeface.createFromAsset(getAssets(), "SourceSansPro-Light.ttf");
         Button save = (Button) findViewById(R.id.button_save_spot);
+        save.setTypeface(SSPLight);
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(spotName == null){
-                    EditText name = (EditText) findViewById(R.id.editText_name);
-                    spotName = name.getText().toString();
+
+                EditText name = (EditText) findViewById(R.id.editText_name);
+                spotName = name.getText().toString();
+
+                if(spotName.compareTo("") != 0){
+                    percentSitting = seekBar.getProgress();
+                    createNewSpot();
+                    MainActivity.FLAG = true;
+                    CreateSpot.flag = true;
+                    finish();
+                }else{
+                    ImageView imageView = (ImageView) findViewById(R.id.imageView_insert_text_wrong);
+                    Animation animation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade_in_out);
+                    imageView.setAnimation(animation);
+                    imageView.startAnimation(animation);
+                    ScrollView scrollView = (ScrollView) findViewById(R.id.scrollView);
+                    scrollView.smoothScrollTo(0, scrollView.getTop());
                 }
-                percentSitting = seekBar.getProgress();
-                createNewSpot();
-                MainActivity.FLAG = true;
-                CreateSpot.flag = true;
-                finish();
             }
         });
 
@@ -227,7 +245,6 @@ public class InsertSpotData extends ActionBarActivity {
 
     private void flowCounter(){
         final ImageView black = (ImageView) findViewById(R.id.imageView_flow_black);
-        final ImageView darkFull = (ImageView) findViewById(R.id.imageView_flow_darkFull);
         final ImageView darkHalf = (ImageView) findViewById(R.id.imageView_flow_darkHalf);
         final ImageView lightLeft = (ImageView) findViewById(R.id.imageView_flow_lightHalf_left);
         final ImageView lightRight = (ImageView) findViewById(R.id.imageView_flow_lightHalf_right);
@@ -308,6 +325,7 @@ public class InsertSpotData extends ActionBarActivity {
                 if(first){
                     black.startAnimation(shrink);
                     counter.setTextSize(TypedValue.COMPLEX_UNIT_SP, MainActivity.NUMB_SIZE);
+                    counter.setTextColor(0xFFFEFEFE);
                     counting = true;
                     first = false;
                 }
@@ -325,9 +343,29 @@ public class InsertSpotData extends ActionBarActivity {
     Om det är en ny spot så blir spotId 1 mer än mängden bara.
      */
     public void createNewSpot(){
+        java.util.Date juDate = new Date();
+        DateTime dt = new DateTime(juDate);
+        DateTimeFormatter fmt_time = DateTimeFormat.forPattern("H:m");
+        DateTimeFormatter fmt_date = DateTimeFormat.forPattern("YYYY-MM-d");
+        String time = dt.toString(fmt_time);
+        String date = dt.toString(fmt_date);
+        Log.d("JODA", time);
+        Log.d("JODA", date);
         Manager manager = Manager.getInstance();
-        manager.addSpot(new Spot(manager.count(), spotName, currentLat, currentLng, new Date().toString(), MainActivity.USER_ID,
-                peoplePresent, nrOfConv, nrOfcollab, percentSitting, flowCounter));
+        manager.addSpot(new Spot(
+                manager.count(),
+                spotName,
+                currentLat,
+                currentLng,
+                time,
+                date,
+                MainActivity.USER_ID,
+                MainActivity.PROJECT,
+                peoplePresent,
+                nrOfConv,
+                nrOfcollab,
+                percentSitting,
+                flowCounter));
     }
 
     @Override
@@ -344,10 +382,10 @@ public class InsertSpotData extends ActionBarActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
+//        //noinspection SimplifiableIfStatement
+//        if (id == R.id.action_settings) {
+//            return true;
+//        }
 
         return super.onOptionsItemSelected(item);
     }

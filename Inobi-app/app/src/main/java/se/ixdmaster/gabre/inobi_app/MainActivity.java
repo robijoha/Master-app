@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.ShareActionProvider;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -37,22 +38,32 @@ import java.util.ArrayList;
 public class MainActivity extends ActionBarActivity {
 
     public static final long TIME = 30000;
-    public static final int TEXT_SIZE = 16;
-    public static final int NUMB_SIZE = 20;
+    public static final int TEXT_SIZE = 24;
+    public static final int NUMB_SIZE = 30;
     public static final int TITLE_SIZE = 30;
+    public static final int SMALL_TEXT_SIZE = 16;
 
-    protected static final int USER_ID = 0;
+    protected static String USER_ID = "";
+    protected static String PROJECT = "";
     protected static boolean FLAG = false;
     protected static boolean REDRAW = false;
+    protected static boolean firstTime = true;
 
     private LocationListener locationListener;
     private LocationManager locationManager;
     private Location myLocation;
     private MapView mapView;
     private ArrayList<Marker> markers;
-    private ArrayList<View.OnTouchListener> onTouchListeners;
     private ShareActionProvider mShareActionProvider;
-    private Intent mShareIntent;
+
+    //TODO: Separera flera punkter på kartan som har samma koordinater?
+    //TODO: Ljud?
+    //TODO: Save, delete knapp!?
+
+    //TODO: xml för insert spot, ny data input, samma för spot_info?
+    //TODO: diskutera med erik och martin om hur det ska se ut.
+    //TODO: Vibrationsfeedback?
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,42 +78,16 @@ public class MainActivity extends ActionBarActivity {
         actionBar.hide();
 
         setContentView(R.layout.activity_main);
-
-        //TODO: Om det är första gången som appen öppnas. Skapa ett id för avnvändaren. Kolla med MoE, om namn eller nummer
-        //TODO: Ljud?
+        markers = new ArrayList<>();
         locationHelper();
         setupMap();
         buttonHandler();
-        loadData();
-//
-//        Spot spot = new Spot(0, "Martin Shop", 57.699504, 11.951287, new Date().toString(),0, 0 ,0 ,0 ,0 ,0);
-//        manager.addSpot(spot);
-//        addMarkerWithListener(spot);
-//
-//        spot = new Spot(1, "Jerntorgets brygghus", 57.699577, 11.951993, new Date().toString(),0, 0 ,0 ,0 ,0 ,0);
-//        manager.addSpot(spot);
-//        addMarkerWithListener(spot);
-//
-//        spot = new Spot(2, "Burger King", 57.699527, 11.952981, new Date().toString(), 0, 0 ,0 ,0 ,0 ,0);
-//        manager.addSpot(spot);
-//        addMarkerWithListener(spot);
-//
-//        spot = new Spot(3, "Burger King", 57.699527, 11.952981, new Date().toString(), 0, 0 ,0 ,0 ,0 ,0);
-//        manager.addSpot(spot);
-//        addMarkerWithListener(spot);
-//
-//        spot = new Spot(4, "Way Cup", 57.699888, 11.951889, new Date().toString(),0, 0 ,0 ,0 ,0 ,0);
-//        manager.addSpot(spot);
-//        addMarkerWithListener(spot);
-//
-//        spot = new Spot(5, "Way Cup", 57.699888, 11.951889, new Date().toString(),0, 0 ,0 ,0 ,0 ,0);
-//        manager.addSpot(spot);
-//        addMarkerWithListener(spot);
     }
 
+    /**
+     * Load data and places all saved markers on the map.
+     */
     private void loadData(){
-        markers = new ArrayList<>();
-        onTouchListeners = new ArrayList<>();
         Manager manager = Manager.getInstance();
         SharedPreferences settings = getSharedPreferences("PREFS", Context.MODE_PRIVATE);
         String savedData = settings.getString("DATA", "[]");
@@ -116,15 +101,17 @@ public class MainActivity extends ActionBarActivity {
                             data.getString("name"),
                             data.getDouble("lat"),
                             data.getDouble("lng"),
+                            data.getString("time"),
                             data.getString("date"),
-                            data.getInt("userId"),
+                            data.getString("userId"),
+                            data.getString("project"),
                             data.getInt("peoplePresent"),
                             data.getInt("nrOfConv"),
                             data.getInt("nrOfcollab"),
                             data.getInt("percentSitting"),
                             data.getInt("flowCounter"));
                     manager.addSpot(spot);
-                    addMarkerWithListener();
+                    addMarkerWithListener(spot);
                 }
             }
         } catch (JSONException e) {
@@ -133,45 +120,43 @@ public class MainActivity extends ActionBarActivity {
         shareHelper();
     }
 
+    /**
+     * Creates the MapView and sets the mapView listener so long clicks can be handled on the map.
+     */
     private void setupMap (){
-        mapView = (MapView) findViewById(R.id.mapview);
-//        UserLocationOverlay myLocationOverlay = new UserLocationOverlay(new GpsLocationProvider(getApplicationContext()) , mapView);
-//        Bitmap icon = BitmapFactory.decodeResource(getResources(),R.drawable.locate);
-//        myLocationOverlay.setPersonBitmap(icon); // locate bilden
-//        myLocationOverlay.setOverlayCircleColor(0xFF00FF00);
-//        myLocationOverlay.enableMyLocation();
-//        myLocationOverlay.setDrawAccuracyEnabled(true);
-//        mapView.getOverlays().add(myLocationOverlay);
-        LatLng ostersund = new LatLng(63.178889, 14.636389);
-        mapView.setCenter(ostersund);
-        mapView.setZoom(6);
-        mapView.setMaxZoomLevel(20);
+        mapView = (MapView) findViewById(R.id.mapview); // locates and initiates the mapview.
+        /*
+        UserLocationOverlay myLocationOverlay = new UserLocationOverlay(new GpsLocationProvider(getApplicationContext()) , mapView);
+        myLocationOverlay.setOverlayCircleColor(0xFF909090);
+        myLocationOverlay.enableMyLocation();
+        myLocationOverlay.setDrawAccuracyEnabled(true);
+        mapView.getOverlays().add(myLocationOverlay);
+        */
+        LatLng chalmers = new LatLng(57.689473, 11.976731);
+        mapView.setCenter(chalmers);
+        mapView.setZoom(17);
+        mapView.setMaxZoomLevel(22);
         mapView.setMinZoomLevel(2);
         mapView.setUserLocationEnabled(true);
         mapView.setMapViewListener(new MapViewListener() {
             @Override
             public void onShowMarker(MapView mapView, Marker marker) {
-
             }
 
             @Override
             public void onHideMarker(MapView mapView, Marker marker) {
-
             }
 
             @Override
             public void onTapMarker(MapView mapView, Marker marker) {
-
             }
 
             @Override
             public void onLongPressMarker(MapView mapView, Marker marker) {
-
             }
 
             @Override
             public void onTapMap(MapView mapView, ILatLng iLatLng) {
-
             }
 
             @Override
@@ -184,6 +169,9 @@ public class MainActivity extends ActionBarActivity {
         });
     }
 
+    /**
+     * The method creates all the buttonhandlers for this view.
+     */
     public void buttonHandler (){
         Button locate = (Button) findViewById(R.id.button_find_user);
         locate.setOnClickListener(new View.OnClickListener() {
@@ -195,11 +183,6 @@ public class MainActivity extends ActionBarActivity {
 
             }
         });
-
-        //TODO: FORSKA I DET HÄR
-//        List<Overlay> list = mapView.getOverlays();
-//
-
 
         Button add = (Button) findViewById(R.id.button_add);
         add.setOnClickListener(new View.OnClickListener() {
@@ -251,25 +234,6 @@ public class MainActivity extends ActionBarActivity {
         locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, locationListener);
     }
 
-    private void buildAlertMessageNoGps() {
-        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage("Kontrollera att din GPS är påslagen")
-                .setCancelable(false)
-                .setPositiveButton("Gärna!", new DialogInterface.OnClickListener() {
-                    public void onClick(@SuppressWarnings("unused") final DialogInterface dialog, @SuppressWarnings("unused") final int id) {
-                        startActivity(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
-                    }
-                })
-                .setNegativeButton("Du är inte min pappa", new DialogInterface.OnClickListener() {
-                    public void onClick(final DialogInterface dialog, @SuppressWarnings("unused") final int id) {
-                        dialog.cancel();
-//                        finish();
-                    }
-                });
-        final AlertDialog alert = builder.create();
-        alert.show();
-    }
-
     /*
     Keeps a small marker on the map to let the user know where they are.
      */
@@ -282,63 +246,50 @@ public class MainActivity extends ActionBarActivity {
         super.onPause();
         if(locationManager != null){
             locationManager.removeUpdates(locationListener);
+            Log.d("GPS", "Pause");
+        }
+        saveHelper();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        SharedPreferences settings = getSharedPreferences("PREFS", Context.MODE_PRIVATE);
+        USER_ID = settings.getString("NAME", "");
+        PROJECT = settings.getString("PROJECT", "");
+        if(USER_ID.compareTo("") == 0){
+            deleteHelper();
+            Intent intent = new Intent(this, NewUser.class);
+            startActivity(intent);
+        }else{
+            loadData();
         }
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        if(FLAG){
-            FLAG = false;
-            addMarkerWithListener();
-        }else if(REDRAW){
-            for(Marker m : markers){
-                mapView.removeMarker(m);
-            }
-            onTouchListeners.clear();
-            for(Spot s : Manager.getInstance().getList()){
-                addMarkerWithListener(s);
-            }
-            REDRAW = false;
-            mapView.closeCurrentTooltip();
-            Manager.getInstance().saveChanges(getSharedPreferences("PREFS", Context.MODE_PRIVATE));
+        for (Marker m : markers) { // first line
+            mapView.removeMarker(m);    //Clears the map from the old markers to update from the latest version of the manager
         }
-
-        if(locationManager != null){
+        markers.clear(); // last line
+        for (Spot s : Manager.getInstance().getList()) {
+            addMarkerWithListener(s);
+        }
+        mapView.closeCurrentTooltip();
+        if (locationManager != null) {
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
             locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, locationListener);
         }
-
         shareHelper();
-
     }
 
-    private void addMarkerWithListener() {
-        final Manager manager = Manager.getInstance();
-        final Spot spot = manager.getLastAddedSpot();
-        Marker marker = new Marker(spot.getName(), spot.getDate(), new LatLng(spot.getLat(),spot.getLng()));
-        InfoWindow infoWindow = marker.getToolTip(mapView);
-        View.OnTouchListener onTouchListener = new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                Intent intent = new Intent(getApplicationContext(), SpotInfo.class);
-                intent.putExtra("Position", spot.getSpotId());
-                startActivity(intent);
-                return true;
-            }
-        };
-        infoWindow.setOnTouchListener(onTouchListener);
-        marker.setToolTip(infoWindow);
-        //TODO: Ändra här så att det blir rätt ikon för spots på kartan
-//        marker.setIcon(new Icon(getResources().getDrawable(R.drawable.one)));
-        marker.setIcon(new Icon(this, Icon.Size.MEDIUM, "circle", "4caf50"));
-        mapView.addMarker(marker);
-        markers.add(marker);
-        onTouchListeners.add(onTouchListener);
-        Manager.getInstance().saveChanges(getSharedPreferences("PREFS", Context.MODE_PRIVATE));
-    }
-
-    //Called in the beginning to repopulate.
+    /**
+     * Adds a marker to the map. In addition to this, the marker is saved in a list
+     * and the created onTouchListener is also saved. This is so that the map can be
+     * totally cleared later.
+     * @param spot is the spot which should be added to the map.
+     */
     private void  addMarkerWithListener(Spot spot) {
         final Spot currentSpot = spot;
         Marker marker = new Marker(spot.getName(), spot.getDate(), new LatLng(spot.getLat(),spot.getLng()));
@@ -354,21 +305,9 @@ public class MainActivity extends ActionBarActivity {
         };
         infoWindow.setOnTouchListener(onTouchListener);
         marker.setToolTip(infoWindow);
-        //TODO: Ändra här så att det blir rätt ikon för spots på kartan
-        marker.setIcon(new Icon(this, Icon.Size.MEDIUM, "circle", "4caf50"));
+        marker.setIcon(new Icon(getResources().getDrawable(R.drawable.pin_54_96))); // Set the icon for markers
         mapView.addMarker(marker);
         markers.add(marker);
-        onTouchListeners.add(onTouchListener);
-        Manager.getInstance().saveChanges(getSharedPreferences("PREFS", Context.MODE_PRIVATE));
-    }
-
-    @Override
-    protected void onDestroy() {
-        Manager.getInstance().saveChanges(getSharedPreferences("PREFS", Context.MODE_PRIVATE));
-        super.onDestroy();
-        if(locationManager != null){
-            locationManager.removeUpdates(locationListener);
-        }
     }
 
     @Override
@@ -390,26 +329,125 @@ public class MainActivity extends ActionBarActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.share) {
-//            ClipboardManager clipboard = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
-//            String data = Manager.getInstance().export();
-//            ClipData clip = ClipData.newPlainText("inobi-data", data);
-//            clipboard.setPrimaryClip(clip);
             return true;
+        }
+
+        if (id == R.id.delete) {
+            buildAlertDeleteALl();
+            return true;
+        }
+
+        if (id == R.id.new_project){
+            buildNewProjectDialog();
+            return true;
+        }
+
+        if (id == R.id.about) {
+            Intent intent = new Intent(getApplicationContext(), About.class);
+            startActivity(intent);
         }
 
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * Sets up how to share the data from the application.
+     */
     private void shareHelper(){
         if(Manager.getInstance().getList().size() != 0){
-            mShareIntent = new Intent();
-            mShareIntent.setAction(Intent.ACTION_SEND);
-            mShareIntent.setType("text/plain");
-            mShareIntent.putExtra(Intent.EXTRA_TEXT, Manager.getInstance().export());
+            Intent shareIntent = new Intent();
+            shareIntent.setAction(Intent.ACTION_SEND);
+            shareIntent.setType("text/plain");
+            shareIntent.putExtra(Intent.EXTRA_TEXT, Manager.getInstance().export());
 
             if (mShareActionProvider != null) {
-                mShareActionProvider.setShareIntent(mShareIntent);
+                mShareActionProvider.setShareIntent(shareIntent);
             }
         }
+    }
+
+    /**
+     * Private method for saving since it was more before, now it's just looks cleaner. :D
+     */
+    private void saveHelper(){
+        SharedPreferences sharedPreferences = getSharedPreferences("PREFS", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("NAME", USER_ID);
+        editor.putString("PROJECT", PROJECT);
+        editor.commit();
+        Manager.getInstance().saveChanges(sharedPreferences);
+    }
+
+    private void deleteHelper(){
+        Manager.getInstance().clearData();
+        for(Marker m : markers){
+            mapView.removeMarker(m);
+        }
+        markers.clear();
+    }
+
+    /**
+     * Builds the alert dialog for deleting all spots.
+     */
+    private void buildAlertDeleteALl() {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Rensa data");
+        builder.setMessage("Har du tänkt igenom det här beslutet?")
+                .setCancelable(false)
+                .setPositiveButton("Du är inte min pappa!", new DialogInterface.OnClickListener() {
+                    public void onClick(@SuppressWarnings("unused") final DialogInterface dialog, @SuppressWarnings("unused") final int id) {
+                        deleteHelper();
+                    }
+                })
+                .setNegativeButton("Kanske inte, nej", new DialogInterface.OnClickListener() {
+                    public void onClick(final DialogInterface dialog, @SuppressWarnings("unused") final int id) {
+                        dialog.cancel();
+                    }
+                });
+        final AlertDialog alert = builder.create();
+        alert.show();
+    }
+
+    private void buildNewProjectDialog() {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Nytt projekt");
+        builder.setMessage("Om du skapar ett nytt projekt rensas all tidigare data. Fortsätt?")
+                .setCancelable(false)
+                .setPositiveButton("Ja", new DialogInterface.OnClickListener() {
+                    public void onClick(@SuppressWarnings("unused") final DialogInterface dialog, @SuppressWarnings("unused") final int id) {
+                        deleteHelper();
+                        Intent intent = new Intent(getApplicationContext(), NewUser.class);
+                        startActivity(intent);
+                    }
+                })
+                .setNegativeButton("Men, nej", new DialogInterface.OnClickListener() {
+                    public void onClick(final DialogInterface dialog, @SuppressWarnings("unused") final int id) {
+                        dialog.cancel();
+                    }
+                });
+        final AlertDialog alert = builder.create();
+        alert.show();
+    }
+
+    /**
+     * Builds the alert dialog if the app i started without gps.
+     */
+    private void buildAlertMessageNoGps() {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("GPS");
+        builder.setMessage("Kontrollera att din GPS är påslagen")
+                .setCancelable(false)
+                .setPositiveButton("Gärna!", new DialogInterface.OnClickListener() {
+                    public void onClick(@SuppressWarnings("unused") final DialogInterface dialog, @SuppressWarnings("unused") final int id) {
+                        startActivity(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+                    }
+                })
+                .setNegativeButton("Du är inte min pappa", new DialogInterface.OnClickListener() {
+                    public void onClick(final DialogInterface dialog, @SuppressWarnings("unused") final int id) {
+                        dialog.cancel();
+                    }
+                });
+        final AlertDialog alert = builder.create();
+        alert.show();
     }
 }

@@ -86,7 +86,7 @@ public class SpotInfo extends ActionBarActivity {
         for (int i = 0; i < list.size(); i++){
             TextView t = list.get(i);
             if(i <= 8){
-                t.setTypeface(SSPRegular);
+                t.setTypeface(SSPLight);
                 t.setTextColor(0xFF2E2E2E);
                 if(i > 4){
                     t.setTextSize(TypedValue.COMPLEX_UNIT_SP, MainActivity.NUMB_SIZE);
@@ -108,6 +108,9 @@ public class SpotInfo extends ActionBarActivity {
         seekBar.setMax(7);
         seekBar.setProgress(spot.getPercentSitting());
         seekBar.setSecondaryProgress(spot.getPercentSitting());
+
+        Button button = (Button) findViewById(R.id.button_info_delete);
+        button.setTypeface(SSPLight);
     }
 
 
@@ -124,11 +127,11 @@ public class SpotInfo extends ActionBarActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
+//
+//        //noinspection SimplifiableIfStatement
+//        if (id == R.id.action_settings) {
+//            return true;
+//        }
 
         return super.onOptionsItemSelected(item);
     }

@@ -19,10 +19,11 @@
 
     <LinearLayout
         android:orientation="horizontal"
-        android:layout_width="fill_parent"
-        android:layout_height="100dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="@drawable/main_bottom_fade">
+        android:background="@drawable/bottom_box_1"
+        android:paddingTop="25dp">
 
         <FrameLayout
             android:layout_width="wrap_content"
@@ -30,20 +31,20 @@
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:layout_weight="1"
-            android:layout_gravity="bottom">
+            android:layout_gravity="center">
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/imageView3"
-                android:src="@drawable/locate"
+                android:src="@drawable/pil"
                 android:layout_gravity="center" />
 
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/button_find_user"
-                android:layout_gravity="center_horizontal"
+                android:layout_gravity="center"
                 android:background="@drawable/placeholder" />
         </FrameLayout>
 
@@ -51,14 +52,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:layout_gravity="bottom">
+            android:layout_gravity="center">
 
-            <TextView
+            <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="inobi"
-                android:id="@+id/textView"
-                android:textSize="50dp"
+                android:id="@+id/imageView9"
+                android:src="@drawable/inobi"
                 android:layout_gravity="center" />
         </FrameLayout>
 
@@ -68,13 +68,13 @@
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:layout_weight="1"
-            android:layout_gravity="bottom">
+            android:layout_gravity="center">
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/imageView_map_add"
-                android:src="@drawable/add"
+                android:src="@drawable/pin_plus"
                 android:layout_gravity="center" />
 
             <Button

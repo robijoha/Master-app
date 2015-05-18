@@ -1,5 +1,7 @@
 package se.ixdmaster.gabre.inobi_app;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -7,9 +9,8 @@ import java.util.Date;
  * Created by Robin on 2015-04-30.
  */
 public class Spot {
-    private int spotId, userId;
-    private String name;
-    private String date;
+    private int spotId;
+    private String name, userId, date, time, project;
     private double lat,lng;
 
     private int peoplePresent = 0;
@@ -24,22 +25,39 @@ public class Spot {
      * @param name, name of the place
      * @param lat, latitude
      * @param lng, longitude
-     * @param date, date in string format, pref YYYYMMDD HHMM
+     * @param time, HH:MM
+     * @param date, YYYY-MM-DD
      * @param userId, static variable from user, else 0
+     * @param project, name of the project
      * @param peoplePresent
      * @param nrOfConv
      * @param nrOfcollab
      * @param percentSitting
      * @param flowCounter
      */
-    public Spot (int spotId, String name, double lat, double lng, String date, int userId, int peoplePresent,
-                 int nrOfConv, int nrOfcollab, int percentSitting, int flowCounter){
+    public Spot (int spotId,
+                 String name,
+                 double lat,
+                 double lng,
+                 String time,
+                 String date,
+                 String userId,
+                 String project,
+                 int peoplePresent,
+                 int nrOfConv,
+                 int nrOfcollab,
+                 int percentSitting,
+                 int flowCounter){
         this.spotId = spotId;
         this.name = name;
         this.lat = lat;
         this.lng = lng;
+
+        this.time = time;
         this.date = date;
+
         this.userId = userId;
+        this.project = project;
         this.peoplePresent = peoplePresent;
         this.nrOfConv = nrOfConv;
         this.nrOfcollab = nrOfcollab;
@@ -50,6 +68,10 @@ public class Spot {
     public String convertToString () {
         if(name != null){
             StringBuilder sB = new StringBuilder();
+            sB.append(project);
+            sB.append("\n");
+            sB.append(userId);
+            sB.append("\n");
             sB.append(spotId);
             sB.append("\n");
             sB.append(name);
@@ -57,6 +79,8 @@ public class Spot {
             sB.append(lat);
             sB.append("\n");
             sB.append(lng);
+            sB.append("\n");
+            sB.append(time);
             sB.append("\n");
             sB.append(date);
             sB.append("\n");
@@ -85,6 +109,24 @@ public class Spot {
         return list;
     }
 
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
+
+
+    public String getProject() {
+        return project;
+    }
+
+    public void setProject(String project) {
+        this.project = project;
+    }
+
     public int getSpotId() {
         return spotId;
     }
@@ -93,11 +135,11 @@ public class Spot {
         this.spotId = spotId;
     }
 
-    public int getUserId() {
+    public String getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(String userId) {
         this.userId = userId;
     }
 
